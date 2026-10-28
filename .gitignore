@@ -1,0 +1,15 @@
+# Dependencies
+frontend/node_modules/
+backend/node_modules/
+
+# Build output
+frontend/dist/
+frontend/.angular/
+backend/dist/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+frontend/.env
+backend/.env
