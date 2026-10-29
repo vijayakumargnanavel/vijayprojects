@@ -59,7 +59,8 @@ export interface DashboardReport {
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private http = inject(HttpClient);
-  private base = 'http://localhost:3000/api';
+  // private base = 'http://localhost:3000/api';
+  private base = 'https://paint-shop-inventory-api.onrender.com/api';
 
   health(): Observable<{ status: string; message: string }> {
     return this.http.get<{ status: string; message: string }>(`${this.base}/health`);
