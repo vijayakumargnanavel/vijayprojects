@@ -1,0 +1,23 @@
+    <section class="page-heading"><div><p class="eyebrow">CATALOGUE</p><h2>Products & stock</h2><p class="muted">Manage the products sold in your shop.</p></div></section>
+    <p class="error" *ngIf="error">{{ error }}</p><p class="success" *ngIf="message">{{ message }}</p>
+    <section class="panel">
+      <h3>{{editingId ? 'Edit product' : 'Add a product'}}</h3>
+      <form class="form-grid" [formGroup]="productForm" (ngSubmit)="add()">
+        <label>SKU / code<input formControlName="sku" [readonly]="!!editingId" placeholder="PNT-001"></label>
+        <label>Product name<input formControlName="name" placeholder="Interior wall paint"></label>
+        <label>Category<input formControlName="category" placeholder="Paint"></label>
+        <label>Brand<input formControlName="brand" placeholder="Brand"></label>
+        <label>Size / variant<input formControlName="variant" placeholder="1 L · White"></label>
+        <label>Unit<select formControlName="unit"><option *ngFor="let u of units" [value]="u">{{u}}</option></select></label>
+        <label>Cost price (₹)<input formControlName="costPrice" type="number" min="0" step="0.01"></label>
+        <label>Selling price (₹)<input formControlName="sellingPrice" type="number" min="0" step="0.01"></label>
+        <label>Low-stock alert at<input formControlName="reorderLevel" type="number" min="0" step="0.001"></label>
+        <div class="form-actions"><button class="btn primary" [disabled]="saving">{{ saving ? 'Saving…' : editingId ? 'Save changes' : 'Add product' }}</button><button class="btn" type="button" (click)="reset()">{{editingId ? 'Cancel edit' : 'Clear'}}</button></div>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="panel-title"><div><h3>Product list</h3><p class="muted">{{ products.length }} products shown</p></div><div class="search"><input [formControl]="searchControl" placeholder="Search name or SKU"><button class="btn" (click)="load()">Search</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>SKU</th><th>Product</th><th>Category</th><th>Unit</th><th>Cost</th><th>Selling</th><th>Stock</th><th></th></tr></thead>
+      <tbody><tr *ngFor="let p of products"><td class="code">{{p.sku}}</td><td><strong>{{p.name}}</strong><small class="subline">{{p.brand}} {{p.variant}}</small></td><td>{{p.category}}</td><td>{{p.unit}}</td><td>{{p.costPrice | currency:'INR':'symbol':'1.2-2'}}</td><td>{{p.sellingPrice | currency:'INR':'symbol':'1.2-2'}}</td><td><span class="stock-pill" [class.low]="p.currentStock <= p.reorderLevel">{{p.currentStock}}</span></td><td><button class="btn small" type="button" (click)="edit(p)">Edit</button></td></tr>
+      <tr *ngIf="!products.length"><td colspan="8" class="empty">No products found. Add your first product above.</td></tr></tbody></table></div>
+    </section>
