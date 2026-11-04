@@ -1,0 +1,27 @@
+    <section class="page-heading"><div><p class="eyebrow">STOCK IN</p><h2>Purchases</h2><p class="muted">Record stock received from suppliers.</p></div></section>
+    <p class="error" *ngIf="error">{{error}}</p><p class="success" *ngIf="message">{{message}}</p>
+    <section class="panel"><h3>New purchase</h3>
+      <form [formGroup]="purchaseForm" (ngSubmit)="save()">
+        <div class="form-grid">
+          <label>Supplier<select formControlName="supplierId"><option value="">Select supplier (optional)</option><option *ngFor="let s of suppliers" [value]="s._id">{{s.name}}</option></select></label>
+          <label>Supplier invoice number<input formControlName="supplierInvoiceNumber"></label>
+          <label>New supplier name (optional)<input formControlName="supplierName" placeholder="If not in list"></label>
+          <label>Amount paid (₹)<input formControlName="amountPaid" type="number" min="0"></label>
+        </div>
+        <div class="add-line"><label class="grow">Product<select formControlName="selectedProductId"><option value="">Choose product</option><option *ngFor="let p of products" [value]="p._id">{{p.sku}} — {{p.name}} ({{p.currentStock}} {{p.unit}})</option></select></label><label>Quantity<input formControlName="qty" type="number" min="0.001" step="0.001"></label><label>Unit cost ₹<input formControlName="unitCost" type="number" min="0" step="0.01"></label><button class="btn" type="button" (click)="addLine()">Add item</button></div>
+        <div class="table-wrap"><table><thead><tr><th>Product</th><th>Qty</th><th>Unit cost</th><th>Amount</th><th></th></tr></thead><tbody><tr *ngFor="let item of items; let i=index"><td>{{item.name}}</td><td>{{item.quantity}} {{item.unit}}</td><td>{{item.unitCost | currency:'INR'}}</td><td>{{item.quantity * item.unitCost | currency:'INR'}}</td><td><button class="link-btn" type="button" (click)="remove(i)">Remove</button></td></tr><tr *ngIf="!items.length"><td colspan="5" class="empty">Add products to this purchase.</td></tr></tbody></table></div>
+        <div class="totals"><label>Discount ₹<input formControlName="discount" type="number" min="0"></label><div><small>Purchase total</small><h2>{{total | currency:'INR':'symbol':'1.2-2'}}</h2></div></div>
+        <button class="btn primary" [disabled]="saving || !items.length">{{saving?'Saving…':'Save purchase & update stock'}}</button>
+      </form>
+    </section>
+    <section class="panel"><h3>Recent purchases</h3><div class="table-wrap"><table><thead><tr><th>Invoice</th><th>Date</th><th>Supplier</th><th>Items</th><th>Total</th></tr></thead><tbody><tr *ngFor="let p of history"><td class="code">{{p.invoiceNumber}}</td><td>{{p.date | date:'mediumDate'}}</td><td>{{p.supplierName || '—'}}</td><td>{{p.items.length}}</td><td>{{p.total | currency:'INR'}}</td></tr></tbody></table></div></section>
+    <section class="panel"><h3>Suppliers</h3>
+      <form class="form-grid" [formGroup]="supplierForm" (ngSubmit)="addSupplier()">
+        <label>Name<input formControlName="name"></label>
+        <label>Phone<input formControlName="phone"></label>
+        <label>Address<input formControlName="address"></label>
+        <div class="form-actions"><button class="btn primary" [disabled]="savingSupplier">{{savingSupplier?'Saving…':'Add supplier'}}</button></div>
+      </form>
+      <div class="table-wrap" *ngIf="suppliers.length"><table><thead><tr><th>Name</th><th>Phone</th><th>Address</th></tr></thead><tbody><tr *ngFor="let s of suppliers"><td>{{s.name}}</td><td>{{s.phone || '—'}}</td><td>{{s.address || '—'}}</td></tr></tbody></table></div>
+      <p class="empty" *ngIf="!suppliers.length">No suppliers yet. Add a supplier to select it on future purchases.</p>
+    </section>

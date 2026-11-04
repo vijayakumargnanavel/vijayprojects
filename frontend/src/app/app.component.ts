@@ -20,7 +20,7 @@ import { ApiService } from './core/api.service';
         <div class="sidebar-note">Single shop · Local inventory</div>
       </aside>
       <main class="main">
-        <header class="topbar"><div><small>SHOP MANAGEMENT</small><h1>Amman Inventory workspace</h1></div><span class="status" [style.background]="apiAvailable?'#e9f8f0':'#fff0ef'" [style.color]="apiAvailable?'#23734b':'#b33b34'"><i [style.background]="apiAvailable?'#2eb779':'#d34f48'"></i>{{apiAvailable?'API connected':'API unavailable'}}</span></header>
+        <header class="topbar"><div><small>SHOP MANAGEMENT</small><h1>Inventory workspace</h1></div><span class="status" [style.background]="apiAvailable?'#e9f8f0':'#fff0ef'" [style.color]="apiAvailable?'#23734b':'#b33b34'"><i [style.background]="apiAvailable?'#2eb779':'#d34f48'"></i>{{apiAvailable?'API connected':'API unavailable'}}</span></header>
         <router-outlet />
       </main>
     </div>
