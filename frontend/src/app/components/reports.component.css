@@ -1,0 +1,70 @@
+.reports-toolbar{
+    display:grid;
+    grid-template-columns:minmax(220px,1fr) 180px 150px;
+    gap:14px;
+    margin-bottom:16px
+}
+.reports-toolbar label{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    font-size:12px;
+    font-weight:600;
+    color:#68758a
+}
+.reports-toolbar input,.reports-toolbar select{
+    border:1px solid #dfe5ee;
+    border-radius:8px;
+    padding:10px 11px;
+    background:#fff;
+    color:#243044;
+    font-size:13px
+}
+.report-type{
+    display:inline-block;
+    border-radius:6px;
+    padding:5px 8px;
+    font-size:10px;
+    font-weight:800
+}
+.report-type.product{
+    background:#e9f1ff;
+    color:#4778d0
+}
+.report-type.purchase{
+    background:#fff2dc;
+    color:#b97820
+}
+.report-type.sale{
+    background:#e5f7ef;
+    color:#218052
+}
+.reports-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding-top:16px;
+    color:#8792a4;
+    font-size:12px
+}
+.reports-pagination{
+    display:flex;
+    align-items:center;
+    gap:10px
+}
+.reports-pagination span{
+    color:#4b586b
+}
+@media(max-width:700px){
+    .reports-toolbar{
+        grid-template-columns:1fr
+    }
+    .reports-footer{
+        align-items:flex-start;
+        flex-direction:column
+    }
+    .reports-pagination{
+        flex-wrap:wrap
+    }
+}

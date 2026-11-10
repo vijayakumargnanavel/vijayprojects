@@ -9,13 +9,14 @@ import { ApiService } from './core/api.service';
   template: `
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="brand"><span class="brand-icon">P</span><div><strong>Amman Traders</strong><small>Inventory</small></div></div>
+        <div class="brand"><span class="brand-icon">P</span><div><strong>ABC Traders</strong><small>Inventory</small></div></div>
         <nav>
           <a routerLink="/dashboard" routerLinkActive="active">▦ <span>Dashboard</span></a>
           <a routerLink="/products" routerLinkActive="active">▤ <span>Products</span></a>
           <a routerLink="/purchases" routerLinkActive="active">↓ <span>Purchases</span></a>
           <a routerLink="/sales" routerLinkActive="active">↑ <span>Sales & Bills</span></a>
           <a routerLink="/inventory" routerLinkActive="active">◷ <span>Stock history</span></a>
+          <a routerLink="/reports" routerLinkActive="active">▥ <span>Reports</span></a>
         </nav>
         <div class="sidebar-note">Single shop · Local inventory</div>
       </aside>

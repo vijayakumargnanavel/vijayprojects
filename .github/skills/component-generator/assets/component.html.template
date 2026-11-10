@@ -1,0 +1,12 @@
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">SECTION</p>
+    <h2>Component title</h2>
+    <p class="muted">Component description.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <h3>Default page</h3>
+  <p class="muted">Add component content here.</p>
+</section>
