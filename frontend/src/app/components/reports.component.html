@@ -1,0 +1,57 @@
+<section class="page-heading">
+  <div><p class="eyebrow">REPORTS</p><h2>Business reports</h2><p class="muted">Products, purchases and sales in one searchable view.</p></div>
+  <button class="btn" type="button" (click)="load()" [disabled]="loading">{{ loading ? 'Loading…' : 'Refresh' }}</button>
+</section>
+
+<p class="error" *ngIf="error">{{ error }}</p>
+
+<section class="panel">
+  <div class="reports-toolbar">
+    <label class="reports-search">Search report
+      <input [(ngModel)]="search" (ngModelChange)="onFilterChange()" placeholder="Reference, product, customer, supplier…">
+    </label>
+    <label>Record type
+      <select [(ngModel)]="type" (ngModelChange)="onFilterChange()">
+        <option value="ALL">All records</option>
+        <option value="PRODUCT">Products</option>
+        <option value="PURCHASE">Purchases</option>
+        <option value="SALE">Sales</option>
+      </select>
+    </label>
+    <label>Rows per page
+      <select [(ngModel)]="pageSize" (ngModelChange)="onFilterChange()">
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="20">20</option>
+        <option [ngValue]="50">50</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Type</th><th>Reference</th><th>Party / Brand</th><th>Details</th><th>Quantity</th><th>Amount / Price</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let row of pagedRows">
+          <td>{{ row.date ? (row.date | date:'mediumDate') : '—' }}</td>
+          <td><span class="report-type" [class.product]="row.type === 'PRODUCT'" [class.purchase]="row.type === 'PURCHASE'" [class.sale]="row.type === 'SALE'">{{ row.type }}</span></td>
+          <td class="code">{{ row.reference }}</td>
+          <td>{{ row.party }}</td>
+          <td>{{ row.details }}</td>
+          <td>{{ row.quantity | number:'1.0-3' }}</td>
+          <td>{{ row.amount | currency:'INR':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr *ngIf="!loading && !filteredRows.length"><td colspan="7" class="empty">No matching report records.</td></tr>
+        <tr *ngIf="loading"><td colspan="7" class="empty">Loading report data…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reports-footer">
+    <span>{{ filteredRows.length }} records found</span>
+    <div class="reports-pagination">
+      <button class="btn small" type="button" (click)="previousPage()" [disabled]="page === 1">Previous</button>
+      <span>Page {{ page }} of {{ totalPages }}</span>
+      <button class="btn small" type="button" (click)="nextPage()" [disabled]="page >= totalPages">Next</button>
+    </div>
+  </div>
+</section>
